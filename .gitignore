@@ -24,3 +24,5 @@ hs_err_pid*
 
 deltas/test_results/
 deltas/target/
+ledger/test_results/
+ledger/target/
