@@ -49,4 +49,7 @@ the balance values to the ledger
 * $ ./stop-cluster.sh
 
 * get the path to your .jar file (usually under /target/ beneath the pom.xml file)
-* $ ./flink run --detached /{path_to_jar}/SampleStream-1.0-SNAPSHOT.jar
+* $ ./flink run --detached /{path_to_jar}/{your_jar_file_name}.jar
+
+eg:
+$ ./flink run --detached /Users/dylanpritchard/src/github.com/dylan/ledger-flink-samples/deltas/target/deltas-1.0-SNAPSHOT.jar

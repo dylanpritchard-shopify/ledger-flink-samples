@@ -12,6 +12,8 @@ import com.shopify.ledger.data.LedgerData;
 import com.shopify.ledger.data.LedgerEntry;
 import com.shopify.ledger.data.MovementEntry;
 
+import com.shopify.ledger.App;
+
 public class AppTest {
   @Before
   public void deleteOutputFolders() {
@@ -29,7 +31,7 @@ public class AppTest {
   }
 
   @Test
-  public void shouldAnswerWithTrue() throws Exception {
+  public void executeStreams() throws Exception {
     final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
     MovementEntry[] data = LedgerData.create();
@@ -43,5 +45,10 @@ public class AppTest {
     splitStream.writeAsText("./test_results/splitStream/");
 
     env.execute();
+  }
+
+  @Test
+  public void executeApp() throws Exception {
+    App.main(new String[0]);
   }
 }

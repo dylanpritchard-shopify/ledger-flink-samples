@@ -12,6 +12,8 @@ import com.shopify.deltas.data.BalanceData;
 import com.shopify.deltas.data.BalanceRecalculationRequest;
 import com.shopify.deltas.data.BalanceRecalculationResponse;
 
+import com.shopify.deltas.App;
+
 public class AppTest {
   @Before
   public void deleteOutputFolders() {
@@ -29,7 +31,7 @@ public class AppTest {
   }
 
   @Test
-  public void shouldAnswerWithTrue() throws Exception {
+  public void executeStreams() throws Exception {
     final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
     BalanceRecalculationRequest[] data = BalanceData.create();
@@ -41,5 +43,10 @@ public class AppTest {
     splitStream.writeAsText("./test_results/splitStream/");
 
     env.execute();
+  }
+
+  @Test
+  public void executeApp() throws Exception {
+    App.main(new String[0]);
   }
 }

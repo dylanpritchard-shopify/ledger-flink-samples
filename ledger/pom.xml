@@ -6,7 +6,7 @@
 
   <groupId>com.shopify.ledger</groupId>
   <artifactId>ledger</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <name>ledger</name>
@@ -45,9 +45,10 @@
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>2.10</version>
+      <scope>compile</scope>
     </dependency>
 
- 		<!-- Add logging framework, to produce console output when running in the IDE. -->
+    <!-- Add logging framework, to produce console output when running in the IDE. -->
 		<!-- These dependencies are excluded from the application JAR by default. -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -85,6 +86,16 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <mainClass>com.shopify.ledger.App</mainClass>
+              </manifest>
+            </archive>
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -103,49 +114,52 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
-        			<!-- We use the maven-shade plugin to create a fat jar that contains all necessary dependencies. -->
-			<!-- Change the value of <mainClass>...</mainClass> if your program entry point changes. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.1.1</version>
-				<executions>
-					<!-- Run shade goal on package phase -->
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<artifactSet>
-								<excludes>
-									<exclude>org.apache.flink:force-shading</exclude>
-									<exclude>com.google.code.findbugs:jsr305</exclude>
-									<exclude>org.slf4j:*</exclude>
-									<exclude>log4j:*</exclude>
-								</excludes>
-							</artifactSet>
-							<filters>
-								<filter>
-									<!-- Do not copy the signatures in the META-INF folder.
-									Otherwise, this might cause SecurityExceptions when using the JAR. -->
-									<artifact>*:*</artifact>
-									<excludes>
-										<exclude>META-INF/*.SF</exclude>
-										<exclude>META-INF/*.DSA</exclude>
-										<exclude>META-INF/*.RSA</exclude>
-									</excludes>
-								</filter>
-							</filters>
-							<transformers>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.shopify.ledger.App</mainClass>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+        <!-- We use the maven-shade plugin to create a fat jar that contains all necessary dependencies. -->
+        <!-- Change the value of <mainClass>...</mainClass> if your program entry point changes. -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>3.1.1</version>
+          <executions>
+            <!-- Run shade goal on package phase -->
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+              <configuration>
+                <artifactSet>
+                  <excludes>
+                    <exclude>org.apache.flink:force-shading</exclude>
+                    <exclude>com.google.code.findbugs:jsr305</exclude>
+                    <exclude>org.slf4j:*</exclude>
+                    <exclude>log4j:*</exclude>
+                  </excludes>
+                  <includes>
+                    <include>com.google.code.gson</include>
+                  </includes>
+                </artifactSet>
+                <filters>
+                  <filter>
+                    <!-- Do not copy the signatures in the META-INF folder.
+                    Otherwise, this might cause SecurityExceptions when using the JAR. -->
+                    <artifact>*:*</artifact>
+                    <excludes>
+                      <exclude>META-INF/*.SF</exclude>
+                      <exclude>META-INF/*.DSA</exclude>
+                      <exclude>META-INF/*.RSA</exclude>
+                    </excludes>
+                  </filter>
+                </filters>
+                <transformers>
+                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                    <mainClass>com.shopify.ledger.App</mainClass>
+                  </transformer>
+                </transformers>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
