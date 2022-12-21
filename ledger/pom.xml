@@ -45,7 +45,6 @@
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>2.10</version>
-      <scope>compile</scope>
     </dependency>
 
     <!-- Add logging framework, to produce console output when running in the IDE. -->
@@ -136,7 +135,7 @@
                     <exclude>log4j:*</exclude>
                   </excludes>
                   <includes>
-                    <include>com.google.code.gson</include>
+                    <include>com.google.code.gson:gson</include>
                   </includes>
                 </artifactSet>
                 <filters>
