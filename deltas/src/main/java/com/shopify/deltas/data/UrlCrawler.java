@@ -36,8 +36,7 @@ public class UrlCrawler {
       items.add(current);
     }
 
-    //String[] y = new String[items.size()];
-    //return items.toArray(y);
-    return items.toArray();
+    String[] y = new String[items.size()];
+    return items.toArray(y);
   }
 }

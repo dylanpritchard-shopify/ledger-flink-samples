@@ -20,3 +20,33 @@ balance adjustments and then send the balance adjustments into the balance views
 
 Take values matching the Inventory Inbound Protocol and break them into debit and credit entries and then send
 the balance values to the ledger
+
+## Running tests
+
+* The tests will build a folder called /test_results/ and put the results of the streams in there
+
+* Go to either the ledger or deltas subfolders (where pom.xml files exist)
+* $ mvn test
+
+## Running Flink locally
+
+* Build the .jar file
+* Go to either the ledger or deltas subfolders (where pom.xml files exist)
+* $ mvn package
+
+* Download and install Flink (mine is in /Library/Flink/)
+
+* Open a terminal window
+* $ cd Library/Flink/deps/bin
+
+* Start the service locally
+* $ ./start-cluster.sh
+* Validate it's working:
+* Localhost:8081
+* $ ps -ef | grep flink
+
+* Stop the service
+* $ ./stop-cluster.sh
+
+* get the path to your .jar file (usually under /target/ beneath the pom.xml file)
+* $ ./flink run --detached /{path_to_jar}/SampleStream-1.0-SNAPSHOT.jar

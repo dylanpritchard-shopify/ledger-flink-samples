@@ -6,9 +6,11 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import com.shopify.ledger.data.LedgerData;
 import com.shopify.ledger.data.LedgerEntry;
 import com.shopify.ledger.data.MovementEntry;
+import com.shopify.ledger.streams.LedgerDataStream;
+import com.shopify.ledger.streams.SplitLedgerEntriesStream;
 
 public class App {
-  public static void main( String[] args ) {
+  public static void main( String[] args ) throws Exception {
     final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
     MovementEntry[] data = LedgerData.create();
